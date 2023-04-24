@@ -20,7 +20,11 @@ window.onkeydown = function(evt) {
     if(evt.key ==  " ") {
         console.log("jump")
     }
-    if(evt.key ==  "ArrowLeft) {
+    if(evt.key ==  "ArrowLeft") {
+        character.moveLeft();
+    }
+    if(evt.key ==  "ArrowRight") {
+        character.moveRight();
     }
 }
 
@@ -51,6 +55,7 @@ function step(timestamp) {
         // console.log(timestamp / 1000);
     }
 
+    character.draw();
     // handle inputs
     setTimeout(requestAnimationFrame(step), fps / 1000);
 }

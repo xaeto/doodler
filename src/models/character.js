@@ -18,40 +18,23 @@ export default class Character extends GameObject {
         this.jump_interval_id = null;
     }
 
-    jump () {
-        const start_pos_y = this.y;
-        const max_y = this.y - 200;
+    moveLeft () {
+        this.x -= 10;
+    }
 
-        if(this.jump_interval_id != null) 
-            clearInterval(this.jump_interval_id);
-        this.jump_interval_id = setInterval(() => {
-            this.y -= 20;
+    moveRight () {
+        this.x += 10;
+    }
 
-            if(this.y < max_y) {
-                this.fall();
-            }
-            this.html_element.style.top = this.y + "px";
-        }, 60);
+    jump(){
+
     }
 
     fall() {
-        const max_y = this.y + 200;
 
-        if(this.jump_interval_id == null) {
-            return;
-        }
-        clearInterval(this.jump_interval_id)
-        const t = setInterval(() => {
-            this.y += 20;
-            console.log(this.y)
-            if(this.y > 1080) {
-                clearInterval(t);
-                this.y = 1080 - 64;
-                this.html_element.style.top = this.y + "px";
-                console.log("debug")
-            } else {
-                this.html_element.style.top = this.y - 33 + "px";
-            }
-        }, 60);
+    }
+
+    draw() {
+        this.html_element.style.left = this.x + "px";
     }
 }
