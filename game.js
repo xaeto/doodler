@@ -12,7 +12,7 @@ const character = new Character("test");
 const game_body = document.getElementById("game_body");
 
 game_body.addEventListener('mousemove', function(event) {
-    character.html_element.style.left = event.clientX + 'px';
+    character.element.style.left = event.clientX + 'px';
 })
 
 window.onkeydown = function(evt) {
@@ -28,7 +28,7 @@ window.onkeydown = function(evt) {
     }
 }
 
-game_body.appendChild(character.html_element);
+game_body.appendChild(character.element);
 
 function setup() {
     if (debug) {
@@ -36,8 +36,8 @@ function setup() {
         console.log("screen_height: ", height);
     }
 
-    character.html_element.style.left = (width  - character_size)/2 + "px";
-    character.html_element.style.bottom = 0 + 'px';
+    character.element.style.left = (width  - character_size)/2 + "px";
+    character.element.style.bottom = 0 + 'px';
     character.y = 0;
     character.x = (width  - character_size)/2;
 }
@@ -47,6 +47,7 @@ function draw() {
     if (debug) {
         console.log("draw")
     }
+    character.draw();
     requestAnimationFrame(step)
 }
 

@@ -1,6 +1,13 @@
+body {
+    margin: 0;
+    display: grid;
+    justify-content: center;
+}
+
 .game {
     position: relative;
     background-color: red;
     width: 480px;
     height: 800px;
+    margin-bottom: 0;
 }
