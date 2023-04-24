@@ -11,8 +11,26 @@ const character = new Character("test");
 
 const game_body = document.getElementById("game_body");
 
+
+// hier die schranken
 game_body.addEventListener('mousemove', function(event) {
-    character.element.style.left = event.clientX + 'px';
+    const cursor = event.clientX
+
+    if (cursor < character_size/2){
+        const x = 0;
+        character.x= x;
+        console.log(x)
+    }else if (cursor > 450){
+        const x = width-character_size;
+        character.x= x;
+        console.log(x)
+    }else {
+        const x = cursor;
+        console.log(x)
+        character.x= x-character_size/2;
+    }
+    
+    
 })
 
 window.onkeydown = function(evt) {
