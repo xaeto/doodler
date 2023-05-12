@@ -31,5 +31,6 @@ export default class Character extends GameObject {
         this.element.style.borderRadius = "50%";
         this.element.style.position = "absolute";
         this.element.style.left = this.x + "px";
+        this.element.style.bottom = this.y + "px"
     }
 }
