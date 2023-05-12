@@ -128,7 +128,6 @@ function draw() {
     character.draw();
     requestAnimationFrame(step)
 }
-let blub = false
 let fallvelo = 3
 
 async function step(timestamp) {
@@ -136,9 +135,9 @@ async function step(timestamp) {
         // console.log(timestamp / 1000);
     }
 
-    await platBewegung()
-
     await veloReset()
+
+    await platBewegung()
 
     //kollisionsabfrage 
     await kollision()
@@ -159,9 +158,10 @@ async function kollision() {
             (character.x + character_size >= platform.x) &&
             character.x <= platform.x + platform.width) {
             //TODO fallgeschwindigkeit der platformen anpassen an maxhöhe des sprungs
-            fallvelo = character.y
+            
 
             if (jumpState != true) {
+                fallvelo = character.y
                 jumpState = true
                 jump()
                 console.log("hit")
@@ -171,6 +171,10 @@ async function kollision() {
 }
 
 async function veloReset (){
+    if (fallvelo >= 50){
+        fallvelo=50
+    }
+
     if (fallvelo >= 3) {
         fallvelo = fallvelo/3
     } else {
@@ -179,25 +183,33 @@ async function veloReset (){
 }
 
 async function platBewegung() {
+    let inintlength=platforms.length
+    let yTemp
+
     for (let i = 0; i < platforms.length; i++) {
         platforms[i].y -= fallvelo
         platforms[i].draw();
 
         //entfernt platformen aus dem div und array und erzeugt am oberen ende eine neue
         if (platforms[i].y < 0) {
+            yTemp = platforms[i].y;   
             console.log(platforms[i].y)
-            let newPosition = Math.random() * (width - 85)
-            let newPlatform = new Platform(newPosition, height + platforms[i].y, 85, 15);
+            
+            const platformElem = platforms[i].element;
+            platformElem.parentNode.removeChild(platformElem);
+            platforms.splice(i, 1); 
+        }
+    } 
+
+    if (inintlength>platforms.length){
+        let newPosition = Math.random() * (width - 85)
+            let newPlatform = new Platform(newPosition, height+yTemp , 85, 15);
             game_body.appendChild(newPlatform.element);
             newPlatform.draw();
             platforms.push(newPlatform)
             console.log(newPlatform.y)
-            const platformElem = platforms[i].element;
-            platformElem.parentNode.removeChild(platformElem);
-            platforms.splice(i, 1);
             highscore++
         }
-    }
 }
 
 setup();
